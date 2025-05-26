@@ -1,5 +1,5 @@
 import React from 'react'
-import NavbarDrawer from './NavbarDrawer'
+import NavbarDrawer from '../../globalcomponents/NavbarDrawer'
 
 const Navbar = () => {
   return (

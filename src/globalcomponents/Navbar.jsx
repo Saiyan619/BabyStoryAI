@@ -1,5 +1,6 @@
 import React from 'react'
-import NavbarDrawer from '../../globalcomponents/NavbarDrawer'
+import NavbarDrawer from './NavbarDrawer'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -26,6 +27,9 @@ const Navbar = () => {
         <li><a>About</a></li>
         <li><a>Features</a> </li>
         <li><a>Pricing</a></li>
+        <Link className="btn btn-primary" to="/dashboard">
+        Dashboard
+        </Link>
       </ul>
     </div>
     <a className="btn btn-ghost text-xl">
@@ -33,14 +37,21 @@ const Navbar = () => {
     </a>
   </div>
   <div className="navbar-center hidden md:flex">
-    <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1">
+          
     <li><a>About</a></li>
         <li><a>Features</a> </li>
         <li><a>Pricing</a></li>
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn btn-primary">Login</a>
+      <div className="navbar-end gap-4">
+        <Link className="btn btn-primary" to="/login">
+        Login
+        </Link>
+        
+        <Link className="btn btn-ghost" to="/signup">
+        Sign Up
+        </Link>
   </div>
 </div>
   )

@@ -1,7 +1,11 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './hompage/components/Navbar'
-import Home from './hompage/Home'
+import Navbar from './globalcomponents/Navbar'
+import Home from './Pages/hompage/Home'
+import Login from './Pages/loginPage/Login';
+import SignUp from './Pages/signupPage/SignUp';
+import ProtectedRoutes from './routes/ProtectedRoutes';
+import DashBoard from './Pages/dashboard/DashBoard';
 
 function App() {
 
@@ -10,17 +14,17 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> */}
+         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         {/* Protected Routes */}
-        {/* <Route
+        <Route
           path="/dashboard"
           element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
+            <ProtectedRoutes>
+              <DashBoard />
+            </ProtectedRoutes>
           }
-        /> */}
+        />
         {/* Add more protected routes as needed */}
       </Routes>
     </BrowserRouter>

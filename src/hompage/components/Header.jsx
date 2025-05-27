@@ -3,16 +3,16 @@ import React from 'react'
 const Header = () => {
   return (
     <div
-  className="hero min-h-screen rounded-2xl"
-  style={{
-    backgroundImage: "url('/animated-children-reading-book-together-happy-kids-learning-and-enjoying-story-time-vector.jpg')",  }}>
-  <div className="hero-overlay bg-opacity-60 rounded-2xl"></div>
+      className="hero h-[80vh] rounded-2xl"
+      style={{
+        backgroundImage: "url('/animated-children-reading-book-together-happy-kids-learning-and-enjoying-story-time-vector.jpg')",
+      }}>
+  <div className="hero-overlay h-[80vh] bg-opacity-60 rounded-2xl"></div>
   <div className="hero-content text-neutral-content text-center">
     <div className="max-w-md">
-      <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+      <h1 className="mb-5 text-5xl font-bold">Create Magical Stories, Made Just for Your Little One</h1>
       <p className="mb-5">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
+        BabyStory is an AI powered App that helps children create personalized stories, fostering creativity and love for reading.
       </p>
       <button className="btn btn-primary">Get Started</button>
     </div>

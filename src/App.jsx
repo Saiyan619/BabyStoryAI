@@ -10,6 +10,8 @@ import VerifyEmail from './Pages/verifyEmail/VerifyEmail';
 import ForgotPassword from './Pages/forgotPassword/ForgotPassword';
 import ResetPassword from './Pages/resetPassword/ResetPassword';
 import AuthCallback from './Pages/auth/AuthCallback';
+import DashboardSettings from './Pages/dashboard/dashboardPages/DashboardSettings';
+import DashboardHome from './Pages/dashboard/DashboardHome';
 function App() {
 
   return (
@@ -23,18 +25,13 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+        {/* <Route path="/dashboard/dashboardSettings" element={<DashboardSettings />} /> */}
 
 
-        {/* Protected Routes */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoutes>
-              <DashBoard />
-            </ProtectedRoutes>
-          }
-        />
-        {/* Add more protected routes as needed */}
+        <Route path="/dashboard" element={<ProtectedRoutes><DashBoard /></ProtectedRoutes>}>
+  <Route index element={<DashboardHome />} />
+  <Route path="settings" element={<DashboardSettings />} />
+</Route>
       </Routes>
     </BrowserRouter>
   )

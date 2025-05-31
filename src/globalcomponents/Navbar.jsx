@@ -29,10 +29,17 @@ const Navbar = () => {
         <li><a>Pricing</a></li>
         <Link className="btn btn-primary" to="/dashboard">
         Dashboard
+            </Link>
+            <Link className="btn btn-primary" to="/login">
+        Login
+        </Link>
+        
+        <Link className="btn btn-ghost" to="/signup">
+        Sign Up
         </Link>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">
+    <a className="btn btn-ghost text-xl ml-5 sm:ml-0">
         <img className='w-32' src="./babystory-high-resolution-logo-removebg-preview.png" alt="logo" />
     </a>
   </div>
@@ -44,7 +51,7 @@ const Navbar = () => {
         <li><a>Pricing</a></li>
     </ul>
   </div>
-      <div className="navbar-end gap-4">
+      <div className="navbar-end gap-4 hidden md:flex">
         <Link className="btn btn-primary" to="/login">
         Login
         </Link>

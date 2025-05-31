@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -13,8 +14,10 @@ const Header = () => {
       <h1 className="mb-5 text-5xl font-bold">Create Magical Stories, Made Just for Your Little One</h1>
       <p className="mb-5">
         BabyStory is an AI powered App that helps children create personalized stories, fostering creativity and love for reading.
-      </p>
-      <button className="btn btn-primary">Get Started</button>
+          </p>
+          <Link to="/signup">
+          <button className="btn btn-primary">Get Started</button>
+          </Link>
     </div>
   </div>
 </div>

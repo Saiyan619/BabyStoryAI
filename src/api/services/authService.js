@@ -1,6 +1,14 @@
 import { useAuthStore } from "../../store/authStore";
+import { useUiStore } from "../../store/UiStore";
 import api from "../axiosInstance";
 
+// This file contains functions for user authentication, including :
+// Login, sign up, fetching user initail data, logout, verifyEmail, forgotPassword, resetPassword.
+
+const auth = useAuthStore.getState();
+// auth.setUser(response.data);
+
+// Login User
  export const login = async (credentials) => {
     console.log("Logging in with credentials:", credentials);
     try {
@@ -10,38 +18,108 @@ import api from "../axiosInstance";
         localStorage.setItem('token', response.data.token);
     auth.setToken(response.data.token)
     console.log(auth.token)
-    const userResponse = await api.get('/parent/me');
-    auth.setUser(userResponse.data);
-    console.log(auth.user);
+    await Me();
     console.log("Login successful")
+    } catch (error) {
+      console.log(error)
+      throw error; 
+    }
+}
+
+
+// Register User
+export const signUp = async (credentials) => {
+  try {
+    const response = await api.post('/parent/register', credentials);
+    console.log("Register response:", response.data);
+    
+    const auth = useAuthStore.getState();
+    localStorage.setItem('token', response.data.token);
+    auth.setToken(response.data.token);
+    
+    await Me();  // fetch user
+
+    const freshAuth = useAuthStore.getState();
+    console.log("User from store after Me():", freshAuth.user);
+
+    if (freshAuth.user && freshAuth.user.email) {
+      await requestVerificationToken(freshAuth.user.email);
+      console.log("Verification token requested for:", freshAuth.user.email);
+    } else {
+      console.warn("User email not found for verification request.");
+    }
+
+    console.log("Sign up successful");
+  } catch (error) {
+    console.log("Signup error:", error);
+    throw error;
+  }
+};
+
+
+// Get User Initial Data
+// This function fetches the initial user data after login or sign up
+export const Me = async() => {
+    try {
+      const response = await api.get('/parent/me');
+      const auth = useAuthStore.getState();   // get fresh store instance here
+      auth.setUser(response.data);
+      console.log("User data fetched successfully:", response.data);
+    return response.data;
     } catch (error) {
         console.log(error)
     }
 }
 
-export const signUp = async (credentials) => {
+//Request Verification Email token
+export const requestVerificationToken = async (email) => {
   try {
-    console.log("Signing up with credentials:", credentials);
-    const response = await api.post('/parent/register', credentials);
-    console.log(response.data);
-      const auth = useAuthStore.getState();
-      localStorage.setItem('token', response.data.token);
-    auth.setToken(response.data.token);
-    console.log(auth.token);
-      Me();
-    console.log("Sign up successful");
+    const response = await api.post('/parent/verify-password/request', { email });
+    console.log("response:", response.data)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
-export const Me = async() => {
-    try {
-        const response = await api.get('/parent/me');
-        const auth = useAuthStore.getState();
-        auth.setUser(response.data);
-        console.log("User data fetched successfully:", response.data);
-    } catch (error) {
-        console.log(error)
-    }
+// Verify Email
+export const verifyEmail = async (code) => {
+  try {
+    const response = await api.post('/parent/verify-password/verify', { code })
+    console.log(response.data)
+  } catch (error) {
+    console.error(error)
+  }
 }
+
+export const forgotPassword = async (email) => {
+  try {
+    const response = await api.post('/parent/forgot-password', { email })
+    console.log("Forgot password request successful:", response.data);
+  } catch (error) {
+    console.error(error)
+    throw error;
+  }
+}
+
+export const resetPassword = async (token, password) => {
+  try {
+    const response = await api.post(`/parent/reset-password/${token}`, { password });
+    console.log("Password reset successful:", response.data);
+  }
+  catch (error) {
+    console.error("Error resetting password:", error);
+    throw error;
+  }
+}
+
+
+export const authService = {
+  initiateGoogleAuth: () => {
+    console.log('Initiating Google OAuth');
+    window.location.href = 'http://localhost:8000/api/parent/auth/google';
+  },
+  googleAuth: () => {
+    console.log('Starting Google authentication');
+    window.location.href = 'http://localhost:8000/api/parent/auth/google';
+  },
+};
